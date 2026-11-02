@@ -500,8 +500,9 @@
       z-index: 1;
     }
 
+    /* Dải vệt sao băng nổi lên trên cùng màn hình */
     .shooting-star {
-      position: absolute;
+      position: fixed; /* Giữ cố định trên màn hình khi cuộn */
       width: 110px;
       height: 2px;
       background: linear-gradient(90deg, rgba(255, 255, 255, 0.95), rgba(91, 170, 246, 0.7), transparent);
@@ -510,6 +511,8 @@
       filter: drop-shadow(0 0 6px #ffffff) drop-shadow(0 0 10px #f796bf);
       opacity: 0;
       animation: shoot linear infinite;
+      z-index: 9999; /* Đưa sao băng nổi lên trên cùng, đè lên ảnh và chữ */
+      pointer-events: none; /* Không cản trở bấm nút hay lướt màn hình */
     }
 
     .shooting-star::before {
@@ -799,6 +802,7 @@
       const sky = document.getElementById('skyBox');
       if (!sky) return;
 
+      // 1. Tạo 4 vệt sao băng bay lặp liên tục chéo qua màn hình (Nổi lên trên cùng)
       const starCount = 4;
       for (let i = 0; i < starCount; i++) {
         const meteor = document.createElement('div');
@@ -807,7 +811,7 @@
         meteor.style.left = (Math.random() * 50 + 40) + 'vw';
         meteor.style.animationDuration = (Math.random() * 3 + 3.5).toFixed(1) + 's';
         meteor.style.animationDelay = (i * 1.8 + Math.random() * 1.5).toFixed(1) + 's';
-        sky.appendChild(meteor);
+        document.body.appendChild(meteor); /* Gắn thẳng vào body để bay đè lên text/ảnh */
       }
 
       const twinkleCount = 18;
