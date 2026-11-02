@@ -622,7 +622,7 @@
         </div>
       </div>
 
-      <!-- PART 02: SECRET STASH -->
+     <!-- PART 02: SECRET STASH -->
       <div class="part-card" id="part2">
         <div class="part-header">
           <div class="part-star-icon"><i class="fa-solid fa-star"></i></div>
@@ -630,41 +630,51 @@
         </div>
         
         <div id="part2-main-content">
+          <!-- 2 Tab chính: Offline & Online -->
           <div class="part2-tabs">
-            <button class="tab-btn active" id="btn-tab-frame" onclick="switchPart2Tab('frame')">Frame Photobooth</button>
-            <button class="tab-btn" id="btn-tab-led" onclick="switchPart2Tab('led')">Check-in LED</button>
+            <button class="tab-btn active" id="btn-tab-offline" onclick="switchGiftMainTab('offline')">Gift Offline</button>
+            <button class="tab-btn" id="btn-tab-online" onclick="switchGiftMainTab('online')">Gift Online</button>
           </div>
 
-          <!-- Tab 1: Frame Photobooth (Gift, Online, Special Gift) -->
-          <div id="tab-frame-content">
+          <!-- 1. NỘI DUNG GIFT OFFLINE -->
+          <div id="content-gift-offline">
             <div class="part2-subtabs">
-              <button class="sub-btn active" id="btn-sub-frame1" onclick="switchFrameImg('frame1', this)">Gift</button>
-              <button class="sub-btn" id="btn-sub-frame3" onclick="switchFrameImg('frame3', this)">Online</button>
-              <button class="sub-btn" id="btn-sub-frame2" onclick="switchFrameImg('frame2', this)">Special Gift</button>
+              <button class="sub-btn active" id="btn-sub-photobooth" onclick="switchOfflineSub('photobooth', this)">Frame Photobooth (HCM & HN)</button>
+              <button class="sub-btn" id="btn-sub-led" onclick="switchOfflineSub('led', this)">Check-in LED</button>
             </div>
 
-            <div id="frame-display-area">
-              <div class="img-display-part2" id="frame-img-box">
-                <img id="frame-img" src="https://placehold.co/800x500/e3f2fd/22578c?text=GIFT+FRAME" alt="Frame Photo">
-              </div>
-            </div>
-          </div>
-
-          <!-- Tab 2: Check-in LED -->
-          <div id="tab-led-content" style="display: none;">
-            <div>
-              <div style="font-size: 1.1rem; font-weight: bold; margin-bottom: 6px; color: var(--text-pink);">19.12</div>
-              <div style="font-size: 1rem; font-weight: bold; margin-bottom: 12px; line-height: 1.4;">
-                12bis, PĐB Nguyễn Huệ, phường Sài Gòn, Thành phố Hồ Chí Minh
+            <!-- Khung hiển thị của Offline -->
+            <div id="offline-display-photobooth">
+              <div style="font-size: 0.95rem; font-weight: bold; margin-bottom: 8px; color: var(--text-blue-dark);">
+                Dành cho fan chụp frame tại các chi nhánh Photobooth Hồ Chí Minh & Hà Nội
               </div>
               <div class="img-display-part2">
-                <img src="https://placehold.co/800x500/e3f2fd/22578c?text=CHECK-IN+LED+PHOTO" alt="Check-in LED Photo">
+                <img id="img-gift-photobooth" src="https://placehold.co/800x500/e3f2fd/22578c?text=GIFT+PHOTOBOOTH+(HCM+%26+HN)" alt="Gift Frame Photobooth HCM HN">
               </div>
+            </div>
+
+            <div id="offline-display-led" style="display: none;">
+              <div style="font-size: 1.1rem; font-weight: bold; margin-bottom: 6px; color: var(--text-pink);">19.12</div>
+              <div style="font-size: 1rem; font-weight: bold; margin-bottom: 12px; line-height: 1.4;">
+                12bis, PĐB Nguyễn Huệ, phường Bến Nghé, Quận 1, Thành phố Hồ Chí Minh
+              </div>
+              <div class="img-display-part2">
+                <img id="img-gift-led" src="https://placehold.co/800x500/e3f2fd/22578c?text=CHECK-IN+LED+GIFT" alt="Check-in LED Gift">
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. NỘI DUNG GIFT ONLINE -->
+          <div id="content-gift-online" style="display: none;">
+            <div style="font-size: 0.95rem; font-weight: bold; margin-bottom: 8px; color: var(--text-blue-dark);">
+              Dành cho các bạn chụp frame tại các cơ sở PHOTOTIME khác trên cả nước
+            </div>
+            <div class="img-display-part2">
+              <img id="img-gift-online" src="https://placehold.co/800x500/e3f2fd/22578c?text=GIFT+ONLINE+(TOAN+QUOC)" alt="Gift Online Phototime">
             </div>
           </div>
         </div>
       </div>
-
       <!-- PART 03: THE ACORN SIGNAL -->
       <div class="part-card" id="part3">
         <div class="part-header">
@@ -734,36 +744,41 @@
   </div>
 
   <script>
-    // Link ảnh mẫu của 3 nút Frame trong Part 2 (Bạn có thể thay link ảnh thật vào đây)
-    const frameImages = {
-      frame1: "https://placehold.co/800x500/e3f2fd/22578c?text=GIFT+FRAME",
-      frame3: "https://placehold.co/800x500/e3f2fd/22578c?text=ONLINE+FRAME",
-      frame2: "https://placehold.co/800x500/e3f2fd/22578c?text=SPECIAL+GIFT+FRAME"
-    };
+    // 1. Chuyển đổi giữa 2 tab lớn: Gift Offline & Gift Online
+    function switchGiftMainTab(type) {
+      const tabOffline = document.getElementById('content-gift-offline');
+      const tabOnline = document.getElementById('content-gift-online');
+      const btnOffline = document.getElementById('btn-tab-offline');
+      const btnOnline = document.getElementById('btn-tab-online');
 
-    function switchFrameImg(key, btn) {
-      const subBtns = document.querySelectorAll('.part2-subtabs .sub-btn');
-      subBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById("frame-img").src = frameImages[key];
+      if (type === 'offline') {
+        tabOffline.style.display = 'block';
+        tabOnline.style.display = 'none';
+        btnOffline.classList.add('active');
+        btnOnline.classList.remove('active');
+      } else {
+        tabOffline.style.display = 'none';
+        tabOnline.style.display = 'block';
+        btnOffline.classList.remove('active');
+        btnOnline.classList.add('active');
+      }
     }
 
-    function switchPart2Tab(tab) {
-      const frameContent = document.getElementById('tab-frame-content');
-      const ledContent = document.getElementById('tab-led-content');
-      const btnFrame = document.getElementById('btn-tab-frame');
-      const btnLed = document.getElementById('btn-tab-led');
+    // 2. Chuyển đổi giữa 2 mục con của Offline: Photobooth (HCM & HN) và Check-in LED
+    function switchOfflineSub(subType, btn) {
+      const subBtns = document.querySelectorAll('#content-gift-offline .sub-btn');
+      subBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
 
-      if (tab === 'frame') {
-        frameContent.style.display = 'block';
-        ledContent.style.display = 'none';
-        btnFrame.classList.add('active');
-        btnLed.classList.remove('active');
+      const displayPhotobooth = document.getElementById('offline-display-photobooth');
+      const displayLed = document.getElementById('offline-display-led');
+
+      if (subType === 'photobooth') {
+        displayPhotobooth.style.display = 'block';
+        displayLed.style.display = 'none';
       } else {
-        frameContent.style.display = 'none';
-        ledContent.style.display = 'block';
-        btnFrame.classList.remove('active');
-        btnLed.classList.add('active');
+        displayPhotobooth.style.display = 'none';
+        displayLed.style.display = 'block';
       }
     }
 
