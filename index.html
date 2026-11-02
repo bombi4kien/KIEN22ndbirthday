@@ -289,19 +289,27 @@
 
     .img-box {
       width: 100%;
-      height: 220px;
+      height: auto; /* Bỏ cố định chiều cao 220px để ảnh co giãn tự nhiên */
+      max-height: 480px; /* Giới hạn chiều cao tối đa vừa tầm mắt */
+      display: flex;
+      align-items: center;
+      justify-content: center;
       border-radius: 14px;
       overflow: hidden;
       border: 1.5px solid var(--card-border);
       background: #edf6fd;
       box-shadow: 0 4px 14px rgba(91, 170, 246, 0.1);
+      padding: 8px; /* Tạo khoảng thở nhẹ xung quanh viền ảnh */
     }
 
     .img-box img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      max-height: 460px;
+      object-fit: contain; /* Giữ nguyên 100% tỉ lệ gốc, không bị cắt xén hay bóp méo */
       display: block;
+      border-radius: 8px;
     }
 
     .img-caption {
