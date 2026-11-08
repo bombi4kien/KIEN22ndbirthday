@@ -289,8 +289,8 @@
 
     .img-box {
       width: 100%;
-      height: auto; /* Bỏ cố định chiều cao 220px để ảnh co giãn tự nhiên */
-      max-height: 480px; /* Giới hạn chiều cao tối đa vừa tầm mắt */
+      height: auto;
+      max-height: 480px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -299,7 +299,7 @@
       border: 1.5px solid var(--card-border);
       background: #edf6fd;
       box-shadow: 0 4px 14px rgba(91, 170, 246, 0.1);
-      padding: 8px; /* Tạo khoảng thở nhẹ xung quanh viền ảnh */
+      padding: 8px;
     }
 
     .img-box img {
@@ -307,7 +307,7 @@
       max-width: 100%;
       height: auto;
       max-height: 460px;
-      object-fit: contain; /* Giữ nguyên 100% tỉ lệ gốc, không bị cắt xén hay bóp méo */
+      object-fit: contain;
       display: block;
       border-radius: 8px;
     }
@@ -356,7 +356,7 @@
       font-weight: bold;
       line-height: 1.5;
       color: var(--text-blue-dark);
-      display: block; /* Mở sẵn cho bạn chỉnh */
+      display: block;
     }
 
     .info-result a {
@@ -420,20 +420,28 @@
 
     .img-display-part2 {
       width: 100%;
-      height: 280px;
+      height: auto;
+      max-height: 520px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       border-radius: 14px;
       overflow: hidden;
       border: 1.5px solid var(--card-border);
       background: #edf6fd;
       margin-top: 10px;
       box-shadow: 0 4px 14px rgba(91, 170, 246, 0.1);
+      padding: 8px;
     }
 
     .img-display-part2 img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      max-height: 500px;
+      object-fit: contain;
       display: block;
+      border-radius: 8px;
     }
 
     /* Liên hệ */
@@ -502,7 +510,7 @@
 
     /* Dải vệt sao băng nổi lên trên cùng màn hình */
     .shooting-star {
-      position: fixed; /* Giữ cố định trên màn hình khi cuộn */
+      position: fixed;
       width: 110px;
       height: 2px;
       background: linear-gradient(90deg, rgba(255, 255, 255, 0.95), rgba(91, 170, 246, 0.7), transparent);
@@ -511,8 +519,8 @@
       filter: drop-shadow(0 0 6px #ffffff) drop-shadow(0 0 10px #f796bf);
       opacity: 0;
       animation: shoot linear infinite;
-      z-index: 9999; /* Đưa sao băng nổi lên trên cùng, đè lên ảnh và chữ */
-      pointer-events: none; /* Không cản trở bấm nút hay lướt màn hình */
+      z-index: 9999;
+      pointer-events: none;
     }
 
     .shooting-star::before {
@@ -587,7 +595,7 @@
   <div class="container">
     <!-- ẢNH BÌA BANNER2 -->
     <div class="cover-wrapper">
-      <img src="banner2.jpg" alt="Ảnh bìa KIEN 22nd Birthday Project" decoding="async" onerror="this.src='banner2.jpg'">
+      <img src="banner2.jpg" alt="Ảnh bìa KIEN 22nd Birthday Project" decoding="async" onerror="this.src='banner2.png'">
     </div>
 
     <!-- KHU VỰC CÁC PART (ĐÃ MỞ TẤT CẢ) -->
@@ -605,7 +613,7 @@
         <div class="part-layout" id="part1-content">
           <div class="left-col">
             <div class="img-box">
-              <img src="prvframe.png" alt="Nutty Snaps Photo">
+              <img src="prvframe.png" alt="Nutty Snaps Photo" loading="lazy" decoding="async">
             </div>
             <div class="img-caption">PHOTOFRAME</div>
           </div>
@@ -622,7 +630,7 @@
         </div>
       </div>
 
-     <!-- PART 02: SECRET STASH -->
+      <!-- PART 02: SECRET STASH -->
       <div class="part-card" id="part2">
         <div class="part-header">
           <div class="part-star-icon"><i class="fa-solid fa-star"></i></div>
@@ -640,46 +648,59 @@
           <div id="content-gift-offline">
             <div class="part2-subtabs">
               <button class="sub-btn active" id="btn-sub-photobooth" onclick="switchOfflineSub('photobooth', this)">Frame Photobooth (HCM & HN)</button>
+              <button class="sub-btn" id="btn-sub-frame-p2" onclick="switchOfflineSub('frame-p2', this)">Frame Giai đoạn 2 (19.12 - 31.12)</button>
               <button class="sub-btn" id="btn-sub-led" onclick="switchOfflineSub('led', this)">Check-in LED</button>
             </div>
 
-            <!-- Mục Photobooth HCM & HN -->
+            <!-- Mục 1: Frame Photobooth GĐ 1 (gift1.png) -->
             <div id="offline-display-photobooth">
               <div style="font-size: 0.95rem; font-weight: bold; margin-bottom: 8px; color: var(--text-blue-dark);">
                 Dành cho fan chụp frame tại các chi nhánh Photobooth Hồ Chí Minh & Hà Nội
               </div>
               <div class="img-display-part2">
-                <img id="img-gift-photobooth" src="https://placehold.co/800x500/e3f2fd/22578c?text=GIFT+PHOTOBOOTH+(HCM+%26+HN)" alt="Gift Frame Photobooth HCM HN">
+                <img id="img-gift-photobooth" src="gift1.png" alt="Gift Frame Photobooth HCM & HN" loading="lazy" decoding="async">
               </div>
             </div>
 
-            <!-- Mục Check-in LED -->
+            <!-- Mục 2: Frame Giai đoạn 2 (gift3.png) -->
+            <div id="offline-display-frame-p2" style="display: none;">
+              <div style="font-size: 1.1rem; font-weight: bold; margin-bottom: 6px; color: var(--text-pink);">19.12 - 31.12</div>
+              <div style="font-size: 0.95rem; font-weight: bold; margin-bottom: 8px; color: var(--text-blue-dark);">
+                Quà tặng Frame Giai đoạn 2
+              </div>
+              <div class="img-display-part2">
+                <img id="img-gift-frame-p2" src="gift3.png" alt="Gift Frame Giai đoạn 2" loading="lazy" decoding="async">
+              </div>
+            </div>
+
+            <!-- Mục 3: Check-in LED (gift4.png) -->
             <div id="offline-display-led" style="display: none;">
               <div style="font-size: 1.1rem; font-weight: bold; margin-bottom: 6px; color: var(--text-pink);">19.12</div>
               <div style="font-size: 1rem; font-weight: bold; margin-bottom: 12px; line-height: 1.4;">
                 12bis, PĐB Nguyễn Huệ, phường Bến Nghé, Quận 1, Thành phố Hồ Chí Minh
               </div>
               <div class="img-display-part2">
-                <img id="img-gift-led" src="https://placehold.co/800x500/e3f2fd/22578c?text=CHECK-IN+LED+GIFT" alt="Check-in LED Gift">
+                <img id="img-gift-led" src="gift4.png" alt="Check-in LED Gift" loading="lazy" decoding="async">
               </div>
             </div>
           </div>
 
-          <!-- 2. NỘI DUNG GIFT ONLINE -->
+          <!-- 2. NỘI DUNG GIFT ONLINE (gift2.png) -->
           <div id="content-gift-online" style="display: none;">
             <div style="font-size: 0.95rem; font-weight: bold; margin-bottom: 8px; color: var(--text-blue-dark);">
               Dành cho các bạn chụp frame tại các cơ sở PHOTOTIME khác trên cả nước
             </div>
             <div class="img-display-part2">
-              <img id="img-gift-online" src="https://placehold.co/800x500/e3f2fd/22578c?text=GIFT+ONLINE+(TOAN+QUOC)" alt="Gift Online Phototime">
+              <img id="img-gift-online" src="gift2.png" alt="Gift Online Phototime" loading="lazy" decoding="async">
             </div>
           </div>
 
-          <!-- ĐẶT Ở ĐÂY: Luôn luôn hiển thị dưới ảnh của Part 2 dù chọn tab nào -->
+          <!-- Dòng chữ cố định dưới ảnh Part 2 -->
           <div class="img-caption" style="margin-top: 14px;">GIFT FOR FAN</div>
 
         </div>
       </div>
+
       <!-- PART 03: THE ACORN SIGNAL -->
       <div class="part-card" id="part3">
         <div class="part-header">
@@ -768,20 +789,26 @@
       }
     }
 
-    // 2. Chuyển đổi giữa 2 mục con của Offline: Photobooth (HCM & HN) và Check-in LED
+    // 2. Chuyển đổi giữa 3 mục con của Offline (Frame Photobooth, Frame GĐ 2, Check-in LED)
     function switchOfflineSub(subType, btn) {
       const subBtns = document.querySelectorAll('#content-gift-offline .sub-btn');
       subBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
       const displayPhotobooth = document.getElementById('offline-display-photobooth');
+      const displayFrameP2 = document.getElementById('offline-display-frame-p2');
       const displayLed = document.getElementById('offline-display-led');
+
+      // Ẩn tất cả trước khi mở mục được chọn
+      displayPhotobooth.style.display = 'none';
+      displayFrameP2.style.display = 'none';
+      displayLed.style.display = 'none';
 
       if (subType === 'photobooth') {
         displayPhotobooth.style.display = 'block';
-        displayLed.style.display = 'none';
-      } else {
-        displayPhotobooth.style.display = 'none';
+      } else if (subType === 'frame-p2') {
+        displayFrameP2.style.display = 'block';
+      } else if (subType === 'led') {
         displayLed.style.display = 'block';
       }
     }
